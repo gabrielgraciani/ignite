@@ -54,6 +54,31 @@ const mockedQueryReturn = {
   ],
 };
 
+const mockedQueryReturn2 = {
+  next_page: 'link',
+  results: [
+    {
+      uid: 'como-utilizar-hooks',
+      first_publication_date: '15 mar 2021',
+      data: {
+        title: 'Como utilizar Hooks',
+        subtitle: 'Pensando em sincronização em vez de ciclos de vida',
+        author: 'Joseph Oliveira',
+      },
+    },
+    {
+      uid: 'criando-um-app-cra-do-zero',
+      first_publication_date: '25 mar 2021',
+      data: {
+        title: 'Criando um app CRA do zero',
+        subtitle:
+          'Tudo sobre como criar a sua primeira aplicação utilizando Create React App',
+        author: 'Danilo Vieira',
+      },
+    },
+  ],
+};
+
 jest.mock('@prismicio/client');
 jest.mock('../../services/prismic');
 
@@ -107,7 +132,7 @@ describe('Home', () => {
   });
 
   it('should be able to return prismic posts documents using getStaticProps', async () => {
-    const postsPaginationReturn = mockedQueryReturn;
+    const postsPaginationReturn = mockedQueryReturn2;
 
     const getStaticPropsContext: GetStaticPropsContext<ParsedUrlQuery> = {};
 
@@ -133,14 +158,14 @@ describe('Home', () => {
 
     screen.getByText('Como utilizar Hooks');
     screen.getByText('Pensando em sincronização em vez de ciclos de vida');
-    screen.getByText('15 mar 2021');
+    screen.getByText('2021-03-15T19:25:28+0000');
     screen.getByText('Joseph Oliveira');
 
     screen.getByText('Criando um app CRA do zero');
     screen.getByText(
       'Tudo sobre como criar a sua primeira aplicação utilizando Create React App'
     );
-    screen.getByText('15 mar 2021');
+    screen.getByText('2021-03-15T19:25:28+0000');
     screen.getByText('Danilo Vieira');
   });
 

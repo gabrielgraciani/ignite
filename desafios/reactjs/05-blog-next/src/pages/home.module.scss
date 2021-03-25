@@ -8,16 +8,16 @@
   width:100%;
 
   a{
-    font-size:28px;
+    font-size:1.8rem;
     font-weight:700;
-    line-height:33.9px;
+    line-height:1.9rem;
     color: var(--gray-100);
   }
 
   p {
     font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
+    font-size: 1.125rem;
+    line-height: 1.3rem;
     color: var(--gray-200);
     margin-top:8px;
     display:block;
@@ -40,8 +40,8 @@
         margin-left:10.5px;
         color: var(--gray-300);
         font-family: Inter;
-        font-size: 14px;
-        line-height: 17px;
+        font-size: 0.875rem;
+        line-height: 1.125rem;
       }
     }
   }
@@ -53,8 +53,8 @@
 
 .loadMore {
   font-weight: 600;
-  font-size: 18px;
-  line-height: 22px;
+  font-size: 1.125rem;
+  line-height: 1.3rem;
   color: var(--pink-500);
   background:none;
   border:0;
