@@ -1,7 +1,11 @@
-import { Flex, Text, Input, Icon, HStack, Box, Avatar } from "@chakra-ui/react"
-import { RiNotificationLine, RiSearchLine, RiUserAddLine } from "react-icons/ri";
+import { Flex, Text, Input, Icon, HStack, Box, Avatar } from '@chakra-ui/react';
+import {
+  RiNotificationLine,
+  RiSearchLine,
+  RiUserAddLine,
+} from 'react-icons/ri';
 
-export function Header() {
+export function Header(): JSX.Element {
   return (
     <Flex
       w="100%"
@@ -13,14 +17,11 @@ export function Header() {
       px="6"
       align="center"
     >
-      <Text
-        fontSize="3xl"
-        fontWeight="bold"
-        letterSpacing="tight"
-        w="64"
-      >
+      <Text fontSize="3xl" fontWeight="bold" letterSpacing="tight" w="64">
         dashgo
-        <Text as="span" ml="1" color="pink.500">.</Text>
+        <Text as="span" ml="1" color="pink.500">
+          .
+        </Text>
       </Text>
 
       <Flex
@@ -36,7 +37,8 @@ export function Header() {
         bg="gray.800"
         borderRadius="full"
       >
-        <Input color="gray.50"
+        <Input
+          color="gray.50"
           variant="unstyled"
           px="4"
           mr="4"
@@ -47,7 +49,8 @@ export function Header() {
       </Flex>
 
       <Flex align="center" ml="auto">
-        <HStack spacing="8"
+        <HStack
+          spacing="8"
           mx="8"
           pr="8"
           py="1"
@@ -67,7 +70,11 @@ export function Header() {
             </Text>
           </Box>
 
-          <Avatar size="md" name="Gabriel Graciani" src="https://github.com/gabrielgraciani.png" />
+          <Avatar
+            size="md"
+            name="Gabriel Graciani"
+            src="https://github.com/gabrielgraciani.png"
+          />
         </Flex>
       </Flex>
     </Flex>
