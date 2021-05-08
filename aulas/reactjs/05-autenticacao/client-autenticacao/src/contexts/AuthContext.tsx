@@ -21,7 +21,8 @@ type SignInCredentials = {
 };
 
 type AuthContextData = {
-  signIn(credentials: SignInCredentials): Promise<void>;
+  signIn: (credentials: SignInCredentials) => Promise<void>;
+  signOut: () => void;
   isAuthenticated: boolean;
   user: User;
 };
@@ -32,9 +33,13 @@ type AuthProviderProps = {
 
 const AuthContext = createContext({} as AuthContextData);
 
+let authChannel: BroadcastChannel;
+
 export function signOut(): void {
   destroyCookie(undefined, 'igniteNextauth.token');
   destroyCookie(undefined, 'igniteNextauth.refreshToken');
+
+  authChannel.postMessage('signOut');
 
   Router.push('/');
 }
@@ -42,6 +47,19 @@ export function signOut(): void {
 function AuthProvider({ children }: AuthProviderProps): JSX.Element {
   const [user, setUser] = useState<User>(null);
   const isAuthenticated = !!user;
+
+  useEffect(() => {
+    authChannel = new BroadcastChannel('auth');
+    authChannel.onmessage = message => {
+      switch (message.data) {
+        case 'signOut':
+          signOut();
+          break;
+        default:
+          break;
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const { 'igniteNextauth.token': token } = parseCookies();
@@ -88,7 +106,7 @@ function AuthProvider({ children }: AuthProviderProps): JSX.Element {
     }
   }
   return (
-    <AuthContext.Provider value={{ signIn, isAuthenticated, user }}>
+    <AuthContext.Provider value={{ signIn, signOut, isAuthenticated, user }}>
       {children}
     </AuthContext.Provider>
   );
