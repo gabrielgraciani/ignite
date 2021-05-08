@@ -6,7 +6,7 @@ import { signOut } from '../contexts/AuthContext';
 let isRefreshing = false;
 let failedRequestsQueue = [];
 
-export function setupAPIClient(ctx = undefined) {
+export function setupAPIClient(ctx = undefined): AxiosInstance {
   let cookies = parseCookies(ctx);
 
   const api = axios.create({
