@@ -32,7 +32,7 @@ type AuthProviderProps = {
 
 const AuthContext = createContext({} as AuthContextData);
 
-export function signOut() {
+export function signOut(): void {
   destroyCookie(undefined, 'igniteNextauth.token');
   destroyCookie(undefined, 'igniteNextauth.refreshToken');
 
