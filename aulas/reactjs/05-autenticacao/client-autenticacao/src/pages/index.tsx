@@ -37,7 +37,7 @@ export default function Home(): JSX.Element {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = withSSRGuest(async () => {
+export const getServerSideProps = withSSRGuest(async () => {
   return {
     props: {},
   };
