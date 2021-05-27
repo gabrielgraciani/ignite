@@ -58,7 +58,7 @@ export function Register() {
         <Button title="Enviar" onPress={() => {}} />
       </Form>
 
-      <Modal visible={categoryModalOpen}>
+      <Modal visible={categoryModalOpen} statusBarTranslucent >
         <CategorySelect category={category} setCategory={setCategory} closeSelectCategory={handleCloseSelectCategoryModal} />
       </Modal>
     </Container>
