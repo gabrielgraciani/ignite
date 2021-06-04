@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { BackButton } from '../../components/BackButton';
 import { Button } from '../../components/Button';
 import { ImageSlider } from '../../components/ImageSlider';
 import { Acessory } from '../../components/Acessory';
@@ -25,13 +26,14 @@ import {
   Price,
   About,
   Acessories,
+  Footer,
 } from './styles';
 
 export function CarDetails(): JSX.Element {
   return (
     <Container>
       <Header>
-        <Button
+        <BackButton
           onPress={() => {
             console.log('teste');
           }}
@@ -68,13 +70,12 @@ export function CarDetails(): JSX.Element {
           <Acessory name="2 pessoas" icon={peopleSvg} />
         </Acessories>
 
-        <About>
-          lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
-          ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-          lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
-          ipsum lorem ipsum
-        </About>
+        <About>lorem ipsum</About>
       </Content>
+
+      <Footer>
+        <Button title="Confirmar" />
+      </Footer>
     </Container>
   );
 }
