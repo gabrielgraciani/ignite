@@ -1,15 +1,22 @@
+import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
 import { StatusBar } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 import Logo from '../../assets/logo.svg';
+
 import { Car } from '../../components/Car';
+import { Loading } from '../../components/Loading';
+
+import { api } from '../../services/api';
 
 import { Container, Header, HeaderContent, TotalCars, CarList } from './styles';
+import { CarDTO } from '../../dtos/CarDTO';
 
 export function Home(): JSX.Element {
   const navigation = useNavigation();
+  const [cars, setCars] = useState<CarDTO[]>([]);
+  const [isLoading, seIstLoading] = useState(true);
 
   const carData = {
     brand: 'audi',
@@ -25,6 +32,21 @@ export function Home(): JSX.Element {
     navigation.navigate('CarDetails');
   }
 
+  useEffect(() => {
+    async function fetchCars() {
+      try {
+        const response = await api.get('/cars');
+        setCars(response.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        seIstLoading(false);
+      }
+    }
+
+    fetchCars();
+  }, []);
+
   return (
     <Container>
       <StatusBar
@@ -39,13 +61,17 @@ export function Home(): JSX.Element {
         </HeaderContent>
       </Header>
 
-      <CarList
-        data={[1, 2, 3, 4, 5, 6, 7, 8]}
-        keyExtractor={item => String(item)}
-        renderItem={({ item }) => (
-          <Car data={carData} onPress={handleCarDetails} />
-        )}
-      />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <CarList
+          data={cars}
+          keyExtractor={item => String(item.id)}
+          renderItem={({ item }) => (
+            <Car data={item} onPress={handleCarDetails} />
+          )}
+        />
+      )}
     </Container>
   );
 }
