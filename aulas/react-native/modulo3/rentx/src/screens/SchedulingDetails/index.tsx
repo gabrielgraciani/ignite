@@ -56,6 +56,7 @@ export function SchedulingDetails(): JSX.Element {
   const [rentalPeriod, setRentalPeriod] = useState<RentalPeriod>(
     {} as RentalPeriod,
   );
+  const [isLoading, setIsLoading] = useState(false);
 
   const theme = useTheme();
   const navigation = useNavigation();
@@ -65,11 +66,23 @@ export function SchedulingDetails(): JSX.Element {
   const rentTotal = Number(dates.length * car.rent.price);
 
   async function handleConfirmRental() {
+    setIsLoading(true);
+
     const scheduleByCar = await api.get(`/schedules_bycars/${car.id}`);
     const unavailable_dates = [
       ...scheduleByCar.data.unavailable_dates,
       ...dates,
     ];
+
+    await api.post('schedules_byuser', {
+      user_id: 1,
+      car,
+      startDate: format(getPlatformDate(new Date(dates[0])), 'dd/MM/yyyy'),
+      endDate: format(
+        getPlatformDate(new Date(dates[dates.length - 1])),
+        'dd/MM/yyyy',
+      ),
+    });
 
     api
       .put(`/schedules_bycars/${car.id}`, {
@@ -77,7 +90,10 @@ export function SchedulingDetails(): JSX.Element {
         unavailable_dates,
       })
       .then(() => navigation.navigate('SchedulingComplete'))
-      .catch(() => Alert.alert('Não foi possível confirmar o agendamento.'));
+      .catch(() => {
+        Alert.alert('Não foi possível confirmar o agendamento.');
+        setIsLoading(false);
+      });
   }
 
   function handleBack() {
@@ -167,6 +183,8 @@ export function SchedulingDetails(): JSX.Element {
           title="Alugar agora"
           color={theme.colors.success}
           onPress={handleConfirmRental}
+          enabled={!isLoading}
+          loading={isLoading}
         />
       </Footer>
     </Container>
