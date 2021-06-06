@@ -18,18 +18,8 @@ export function Home(): JSX.Element {
   const [cars, setCars] = useState<CarDTO[]>([]);
   const [isLoading, seIstLoading] = useState(true);
 
-  const carData = {
-    brand: 'audi',
-    name: 'RS 5 Coupé',
-    rent: {
-      period: 'Ao dia',
-      price: 120,
-    },
-    thumbnail: 'https://freepngimg.com/thumb/audi/35227-5-audi-rs5-red.png',
-  };
-
-  function handleCarDetails() {
-    navigation.navigate('CarDetails');
+  function handleCarDetails(car: CarDTO) {
+    navigation.navigate('CarDetails', { car });
   }
 
   useEffect(() => {
@@ -68,7 +58,7 @@ export function Home(): JSX.Element {
           data={cars}
           keyExtractor={item => String(item.id)}
           renderItem={({ item }) => (
-            <Car data={item} onPress={handleCarDetails} />
+            <Car data={item} onPress={() => handleCarDetails(item)} />
           )}
         />
       )}

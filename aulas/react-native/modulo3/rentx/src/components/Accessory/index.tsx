@@ -8,7 +8,7 @@ interface Props {
   icon: React.FC<SvgProps>;
 }
 
-export function Acessory({ icon: Icon, name }: Props): JSX.Element {
+export function Accessory({ icon: Icon, name }: Props): JSX.Element {
   return (
     <Container>
       <Icon width={32} height={32} />
