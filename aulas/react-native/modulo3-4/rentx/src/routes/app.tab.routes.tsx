@@ -14,8 +14,6 @@ import { MyCars } from '../screens/MyCars';
 
 interface TabBarIconProps {
   color: string;
-  focused: boolean;
-  size: number;
 }
 
 const { Navigator, Screen } = createBottomTabNavigator();
