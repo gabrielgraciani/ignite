@@ -1,5 +1,13 @@
-import React from 'react';
-import { StatusBar } from 'react-native';
+import React, { useState } from 'react';
+import * as Yup from 'yup';
+import {
+  StatusBar,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Alert,
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
@@ -9,52 +17,85 @@ import theme from '../../styles/theme';
 import { Container, Header, Title, SubTitle, Footer, Form } from './styles';
 
 export function SignIn(): JSX.Element {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const navigation = useNavigation();
+
+  async function handleSignIn() {
+    try {
+      const schema = Yup.object().shape({
+        email: Yup.string()
+          .required('E-mail obrigatório')
+          .email('Digite um email válido'),
+        password: Yup.string().required('Senha obrigatória'),
+      });
+
+      await schema.validate({ email, password });
+      Alert.alert('tudo certo');
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        Alert.alert('Opa', error.message);
+      } else {
+        Alert.alert(
+          'Erro na autenticação',
+          'ocorreu um erro ao fazer login, verifique as credenciais',
+        );
+      }
+    }
+  }
+
+  function handleNewAccount() {
+    navigation.navigate('SignUpFirstStep');
+  }
+
   return (
-    <Container>
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor="transparent"
-        translucent
-      />
+    <KeyboardAvoidingView behavior="position" enabled>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <Container>
+          <StatusBar
+            barStyle="dark-content"
+            backgroundColor="transparent"
+            translucent
+          />
 
-      <Header>
-        <Title>Estamos{'\n'}quase lá.</Title>
-        <SubTitle>
-          Faça seu login para começar{'\n'}uma experiência incrível.
-        </SubTitle>
-      </Header>
+          <Header>
+            <Title>Estamos{'\n'}quase lá.</Title>
+            <SubTitle>
+              Faça seu login para começar{'\n'}uma experiência incrível.
+            </SubTitle>
+          </Header>
 
-      <Form>
-        <Input
-          iconName="mail"
-          placeholder="E-mail"
-          keyboardType="email-address"
-          autoCorrect={false}
-          autoCapitalize="none"
-        />
-        <Input iconName="lock" placeholder="Senha" type="password" />
-      </Form>
+          <Form>
+            <Input
+              iconName="mail"
+              placeholder="E-mail"
+              keyboardType="email-address"
+              autoCorrect={false}
+              autoCapitalize="none"
+              value={email}
+              onChangeText={setEmail}
+            />
+            <Input
+              iconName="lock"
+              placeholder="Senha"
+              type="password"
+              value={password}
+              onChangeText={setPassword}
+            />
+          </Form>
 
-      <Footer>
-        <Button
-          title="Login"
-          onPress={() => {
-            console.log('test');
-          }}
-          enabled={false}
-          loading={false}
-        />
-        <Button
-          title="Criar conta gratuita"
-          onPress={() => {
-            console.log('test');
-          }}
-          enabled={false}
-          loading={false}
-          color={theme.colors.background_secondary}
-          light
-        />
-      </Footer>
-    </Container>
+          <Footer>
+            <Button title="Login" onPress={handleSignIn} loading={false} />
+            <Button
+              title="Criar conta gratuita"
+              onPress={handleNewAccount}
+              color={theme.colors.background_secondary}
+              light
+            />
+          </Footer>
+        </Container>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }
