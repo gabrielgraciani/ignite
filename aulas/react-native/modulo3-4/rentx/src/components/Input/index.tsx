@@ -51,7 +51,7 @@ export function Input({
 
       <InputText
         {...rest}
-        secureTextEntry={isPasswordVisible}
+        secureTextEntry={type === 'password' ? isPasswordVisible : false}
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
         isFocused={isFocused}

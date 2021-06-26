@@ -51,7 +51,7 @@ export function Splash(): JSX.Element {
   });
 
   const startApp = useCallback(() => {
-    navigation.navigate('Home');
+    navigation.navigate('SignIn');
   }, [navigation]);
 
   useEffect(() => {
