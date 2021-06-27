@@ -16,6 +16,7 @@ export function Input({
   iconName,
   type = 'text',
   value,
+  editable = true,
   ...rest
 }: InputProps): JSX.Element {
   const theme = useTheme();
@@ -39,7 +40,7 @@ export function Input({
 
   return (
     <Container>
-      <IconContainer isFocused={isFocused}>
+      <IconContainer isFocused={isFocused} editable={editable}>
         <Feather
           name={iconName}
           size={24}
@@ -55,11 +56,12 @@ export function Input({
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
         isFocused={isFocused}
+        editable={editable}
       />
 
       {type === 'password' && (
         <BorderlessButton onPress={handlePasswordVisibilityChange}>
-          <IconContainer isFocused={isFocused}>
+          <IconContainer isFocused={isFocused} editable={editable}>
             <Feather
               name={isPasswordVisible ? 'eye' : 'eye-off'}
               size={24}

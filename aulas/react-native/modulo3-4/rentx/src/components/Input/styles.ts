@@ -4,6 +4,7 @@ import { TextInput } from 'react-native';
 
 interface Props {
   isFocused: boolean;
+  editable: boolean;
 }
 
 export const Container = styled.View`
@@ -16,7 +17,8 @@ export const IconContainer = styled.View<Props>`
   width: 56px;
   justify-content: center;
   align-items: center;
-  background-color: ${({ theme }) => theme.colors.background_secondary};
+  background-color: ${({ theme, editable }) =>
+    editable ? theme.colors.background_secondary : theme.colors.shape};
   border-color: transparent;
   border-width: 2px;
 
@@ -30,7 +32,8 @@ export const IconContainer = styled.View<Props>`
 export const InputText = styled(TextInput)<Props>`
   background: red;
   flex: 1;
-  background-color: ${({ theme }) => theme.colors.background_secondary};
+  background-color: ${({ theme, editable }) =>
+    editable ? theme.colors.background_secondary : theme.colors.shape};
   color: ${({ theme }) => theme.colors.text};
   font-family: ${({ theme }) => theme.fonts.primary_400};
   font-size: ${RFValue(15)}px;
