@@ -9,8 +9,8 @@ import PeopleSvg from '../assets/people.svg';
 
 import { AppStackRoutes } from './app.stack.routes';
 
-import { Home } from '../screens/Home';
 import { MyCars } from '../screens/MyCars';
+import { Profile } from '../screens/Profile';
 
 interface TabBarIconProps {
   color: string;
@@ -54,7 +54,7 @@ export function AppTabRoutes(): JSX.Element {
       />
       <Screen
         name="Profile"
-        component={Home}
+        component={Profile}
         options={{
           tabBarIcon: ({ color }: TabBarIconProps) => (
             <PeopleSvg width={24} height={24} fill={color} />
