@@ -52,7 +52,9 @@
     "@typescript-eslint/no-empty-interface": "off",
     "react/jsx-props-no-spreading": "off",
     "react/require-default-props": "off",
-    "@typescript-eslint/no-use-before-define": "off"
+    "@typescript-eslint/no-use-before-define": "off",
+    "no-param-reassign": "off",
+    "no-underscore-dangle": "off"
   },
   "settings": {
     "import/resolver": {
