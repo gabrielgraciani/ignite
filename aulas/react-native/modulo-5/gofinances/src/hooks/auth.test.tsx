@@ -9,7 +9,7 @@ jest.mock('expo-google-app-auth');
 describe('Auth hook', () => {
   it('should be able to sign in with Google account existing', async () => {
     const googleMocked = mocked(logInAsync as any);
-    googleMocked.mockReturnValue({
+    googleMocked.mockReturnValueOnce({
       type: 'success',
       user: {
         id: 'any_id',
@@ -28,9 +28,10 @@ describe('Auth hook', () => {
     expect(result.current.user.email).toBe('gabriel@hotmail.com');
   });
 
+
   it('user should not connect if cancel authentication with google', async () => {
     const googleMocked = mocked(logInAsync as any);
-    googleMocked.mockReturnValue({
+    googleMocked.mockReturnValueOnce({
       type: 'cancel',
     });
 
